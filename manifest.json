@@ -1,0 +1,23 @@
+{
+  "name": "Simplify Mastodon",
+
+  "version": "1.0",
+
+  "manifest_version": 3,
+
+  "description": "Simplify Mastodon",
+
+  "icons": {
+    "128": "img/icon128.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://*.mas.to/*"],
+      "css": ["styles.css"],
+      "js": ["scripts.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}

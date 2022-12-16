@@ -1,0 +1,147 @@
+html.simplify {
+  --shadow: 0 5px 15px rgb(0 0 0 / 12%);
+  --shadow-light: 0 3px 10px rgb(0 0 0 / 8%);
+}
+html.simplify body {
+  background: #f7f9fa;
+}
+html.simplify .columns-area__panels__pane--navigational {
+  order: 0;
+}
+html.simplify .column-link--logo {
+  display: none !important;
+}
+html.simplify .navigation-panel {
+  padding-top: 20px;
+  height: auto;
+}
+html.simplify .navigation-panel .column-link:not(:hover) i + span {
+  opacity: 0;
+}
+html.simplify .navigation-panel a.column-link {
+  display: flex;
+  align-items: center;
+}
+html.simplify .navigation-panel a.column-link i {
+  font-size: 24px;
+}
+html.simplify .navigation-panel a.column-link i.icon-with-badge__badge {
+  font-size: 12px;
+}
+html.simplify .navigation-panel .column-link[title=Local],
+html.simplify .navigation-panel .column-link[title=Federated],
+html.simplify .navigation-panel .column-link[title=Favourites],
+html.simplify .navigation-panel .column-link[title=Bookmarks],
+html.simplify .navigation-panel .column-link[title=Lists] {
+  display: none;
+}
+html.simplify .navigation-panel .column-link ~ hr {
+  display: none;
+}
+html.simplify .link-footer {
+  display: none;
+}
+html.simplify .columns-area__panels__main {
+  order: 1;
+  max-width: calc(100% - 615px);
+}
+html.simplify .columns-area__panels__main > div {
+  max-width: 650px;
+}
+html.simplify .tabs-bar__wrapper {
+  padding-top: 0px;
+  margin: auto;
+  width: 100%;
+}
+html.simplify .column-header {
+  border-radius: 0px;
+  border: none;
+  background-color: transparent;
+}
+html.simplify .column-header__button {
+  background-color: transparent;
+}
+html.simplify .column > .scrollable {
+  border: 0px;
+  background-color: transparent;
+}
+html.simplify article {
+  background-color: white;
+  margin: 40px 25px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-light);
+}
+html.simplify article .status {
+  border-bottom: none;
+}
+html.simplify article .status__relative-time {
+  opacity: 0.5;
+}
+html.simplify article:not(:hover) .status__action-bar {
+  opacity: 0.2;
+}
+html.simplify .columns-area__panels__pane--compositional {
+  order: 2;
+}
+html.simplify .columns-area__panels__pane--compositional .columns-area__panels__pane__inner {
+  z-index: 1;
+}
+html.simplify .compose-form {
+  padding: 0 0 80px 0;
+}
+html.simplify .compose-form textarea::placeholder {
+  opacity: 0;
+}
+html.simplify .compose-form:has(textarea:empty) .compose-form__publish {
+  opacity: 0;
+}
+html.simplify .compose-form:has(textarea:empty) .compose-form__buttons-wrapper:not(:hover) {
+  opacity: 0.3;
+}
+html.simplify .compose-form:has(.reply-indicator__header) .compose-form__publish {
+  opacity: 1;
+}
+html.simplify .getting-started__trends {
+  display: none;
+}
+html.simplify .compose-panel {
+  padding-top: 20px;
+  height: calc(100% - 40px);
+}
+html.simplify .compose-panel .navigation-bar {
+  position: fixed;
+  left: 16px;
+  bottom: 24px;
+  z-index: 1;
+  border-radius: 100px;
+}
+html.simplify .compose-panel .navigation-bar:hover {
+  background-color: #fff;
+  box-shadow: var(--shadow);
+}
+html.simplify .compose-panel .navigation-bar:not(:hover) .navigation-bar__profile,
+html.simplify .compose-panel .navigation-bar:not(:hover) .navigation-bar__actions {
+  display: none;
+}
+html.simplify .compose-panel .navigation-bar__profile {
+  min-width: 100px;
+}
+html.simplify .compose-panel .account__avatar {
+  border-radius: 23px;
+}
+html.simplify .search__input:empty:not(:focus) {
+  opacity: 0;
+  cursor: pointer;
+  margin-left: auto;
+  width: 50px;
+}
+html.simplify .search:has(.search__input:empty:not(:focus)) .fa-search {
+  opacity: 0.7;
+  border-radius: 22px;
+  font-size: 20px;
+  cursor: pointer;
+}
+html.simplify .search:has(.search__input:focus) .fa-search,
+html.simplify .search:has(.search__input:not(:empty)) .fa-search {
+  display: none;
+}
