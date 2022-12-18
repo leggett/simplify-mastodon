@@ -1,2 +1,10 @@
 
+archives/
+
+# misc
 .DS_Store
+.eslintcache
+Icon
+*/.DS_Store
+*/.eslintcache
+*/Icon

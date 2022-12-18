@@ -155,10 +155,62 @@ window.addEventListener(
 
 let html;
 
+const minimizeCompose = () => {
+  const compose = get(".compose-form");
+  if (compose) {
+    compose.classList.add("hidden");
+    compose.addEventListener("click", (e) => {
+      e.target.classList.remove("hidden");
+    });
+
+    get(".compose-form__publish")?.addEventListener("click", () => {
+      get(".compose-form")?.classList.add("hidden");
+    });
+    console.log("Compose hidden");
+  }
+};
+
+// Scrolling monitor to hide title bar
+let lastScrollPos = 0;
+let titleBarHeight = 78;
+let titleBarHidden = false;
+const checkScrollPos = () => {
+  const currentScrollPos = titleBarHidden
+    ? parseInt(html.scrollTop)
+    : parseInt(html.scrollTop) - titleBarHeight;
+
+  if (currentScrollPos < lastScrollPos - 50) {
+    // console.log("Scrolling up", currentScrollPos, lastScrollPos);
+    html.classList.remove("scrolled");
+    titleBarHidden = false;
+    lastScrollPos = currentScrollPos;
+  } else if (currentScrollPos > lastScrollPos + 100) {
+    // console.log("Scrolling down", currentScrollPos, lastScrollPos);
+    if (currentScrollPos > 100) {
+      html.classList.add("scrolled");
+      titleBarHidden = true;
+    }
+    lastScrollPos = currentScrollPos;
+  }
+  // else {
+  //   console.log("Scrolling else", currentScrollPos, lastScrollPos);
+  // }
+};
+
 const init = () => {
   html = document.documentElement;
   html.classList.add("simplify");
   console.log("Simplify Mastodon v1.0 loaded");
+
+  minimizeCompose();
+  window.addEventListener("scroll", checkScrollPos, { passive: true });
+
+  // Disable Simplify in multiple columns mode
+  if (document.body.classList.contains("layout-multiple-columns")) {
+    html.classList.remove("simplify");
+  }
+
+  titleBarHeight = get(".tabs-bar__wrapper")?.scrollHeight || 78;
 };
 
 window.addEventListener("load", init);

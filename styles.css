@@ -1,9 +1,23 @@
 html.simplify {
-  --shadow: 0 5px 15px rgb(0 0 0 / 12%);
-  --shadow-light: 0 3px 10px rgb(0 0 0 / 8%);
+  --shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  --shadow-light: 0 3px 10px rgba(0, 0, 0, 0.08);
+  --shadow-big: 0px 8px 36px rgba(0, 0, 0, 0.05);
+}
+html.simplify body.theme-mastodon-light {
+  --color-background: #fff;
+  --color-bg-cards: #fff;
+}
+html.simplify body.theme-default,
+html.simplify body.theme-contrast {
+  --color-background: #191b22;
+  --color-bg-cards: #262a3b;
+}
+html.simplify body.theme-mastodon-winter {
+  --color-background: #1f3750;
+  --color-bg-cards: #233e5b;
 }
 html.simplify body {
-  background: #f7f9fa;
+  background: var(--color-background);
 }
 html.simplify .columns-area__panels__pane--navigational {
   order: 0;
@@ -49,9 +63,13 @@ html.simplify .columns-area__panels__main > div {
   max-width: 650px;
 }
 html.simplify .tabs-bar__wrapper {
-  padding-top: 0px;
+  padding-top: 30px;
   margin: auto;
   width: 100%;
+  background: var(--color-background);
+}
+html.simplify.scrolled .tabs-bar__wrapper {
+  display: none;
 }
 html.simplify .column-header {
   border-radius: 0px;
@@ -66,10 +84,10 @@ html.simplify .column > .scrollable {
   background-color: transparent;
 }
 html.simplify article {
-  background-color: white;
+  background-color: var(--color-bg-cards);
   margin: 40px 25px;
   border-radius: 16px;
-  box-shadow: var(--shadow-light);
+  box-shadow: var(--shadow-big);
 }
 html.simplify article .status {
   border-bottom: none;
@@ -86,20 +104,46 @@ html.simplify .columns-area__panels__pane--compositional {
 html.simplify .columns-area__panels__pane--compositional .columns-area__panels__pane__inner {
   z-index: 1;
 }
-html.simplify .compose-form {
+html.simplify form.compose-form * .compose-form {
   padding: 0 0 80px 0;
 }
-html.simplify .compose-form textarea::placeholder {
+html.simplify form.compose-form * .compose-form textarea::placeholder {
   opacity: 0;
 }
-html.simplify .compose-form:has(textarea:empty) .compose-form__publish {
-  opacity: 0;
+html.simplify .compose-form.hidden:not(:has(.reply-indicator__header)) {
+  min-height: 48px;
+  max-height: 48px;
+  height: 48px;
+  width: 48px;
+  padding: 0;
+  margin: 0;
+  margin-left: auto;
+  cursor: pointer;
 }
-html.simplify .compose-form:has(textarea:empty) .compose-form__buttons-wrapper:not(:hover) {
-  opacity: 0.3;
+html.simplify .compose-form.hidden:not(:has(.reply-indicator__header)) * {
+  display: none;
 }
-html.simplify .compose-form:has(.reply-indicator__header) .compose-form__publish {
-  opacity: 1;
+html.simplify .compose-form.hidden:not(:has(.reply-indicator__header))::before {
+  content: "\f040";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 24px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 12px 0 0 20px;
+  opacity: 0.7;
+}
+html.simplify .compose-form__publish-button-wrapper {
+  overflow: visible !important;
+}
+html.simplify .compose-form__publish-button-wrapper::after {
+  content: "Cancel";
+  transform: translate(-68px, -34px);
+  display: inline-block;
+  opacity: 0.5;
+  cursor: pointer;
+  padding: 8px;
 }
 html.simplify .getting-started__trends {
   display: none;
@@ -116,7 +160,7 @@ html.simplify .compose-panel .navigation-bar {
   border-radius: 100px;
 }
 html.simplify .compose-panel .navigation-bar:hover {
-  background-color: #fff;
+  background-color: var(--color-bg-cards);
   box-shadow: var(--shadow);
 }
 html.simplify .compose-panel .navigation-bar:not(:hover) .navigation-bar__profile,

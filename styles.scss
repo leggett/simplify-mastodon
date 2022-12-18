@@ -1,9 +1,24 @@
 html.simplify {
-  --shadow: 0 5px 15px rgb(0 0 0 / 12%);
-  --shadow-light: 0 3px 10px rgb(0 0 0 / 8%);
+  --shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  --shadow-light: 0 3px 10px rgba(0, 0, 0, 0.08);
+  --shadow-big: 0px 8px 36px rgba(0, 0, 0, 0.05);
+
+  body.theme-mastodon-light {
+    --color-background: #fff;
+    --color-bg-cards: #fff;
+  }
+  body.theme-default,
+  body.theme-contrast {
+    --color-background: #191b22;
+    --color-bg-cards: #262a3b;
+  }
+  body.theme-mastodon-winter {
+    --color-background: #1f3750;
+    --color-bg-cards: #233e5b;
+  }
 
   body {
-    background: #f7f9fa;
+    background: var(--color-background);
   }
 
   // =============================================
@@ -79,10 +94,17 @@ html.simplify {
   }
 
   .tabs-bar__wrapper {
-    padding-top: 0px;
+    padding-top: 30px;
     margin: auto;
     width: 100%;
+    background: var(--color-background);
   }
+
+  // Hide the title bar when scrolled down
+  &.scrolled .tabs-bar__wrapper {
+    display: none;
+  }
+
   .column-header {
     border-radius: 0px;
     border: none;
@@ -99,10 +121,10 @@ html.simplify {
   // .scrollable div[tabindex="-1"]:has(> .status__wrapper),
   // .scrollable div[tabindex="-1"]:has(> .detailed-status__wrapper),
   article {
-    background-color: white;
+    background-color: var(--color-bg-cards);
     margin: 40px 25px;
     border-radius: 16px;
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-big);
 
     .status {
       border-bottom: none;
@@ -129,22 +151,65 @@ html.simplify {
     }
   }
 
-  .compose-form {
+  form.compose-form * .compose-form {
     padding: 0 0 80px 0;
 
     textarea::placeholder {
       opacity: 0;
     }
   }
-  .compose-form:has(textarea:empty) .compose-form__publish {
-    opacity: 0;
+
+  .compose-form.hidden:not(:has(.reply-indicator__header)) {
+    // Hide everything in compose when it isn't open
+    * {
+      display: none;
+    }
+
+    // Shrink the box to an icon
+    min-height: 48px;
+    max-height: 48px;
+    height: 48px;
+    width: 48px;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: 24px;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 12px 0 0 20px;
+      opacity: 0.7;
+    }
   }
-  .compose-form:has(textarea:empty) .compose-form__buttons-wrapper:not(:hover) {
-    opacity: 0.3;
+
+  .compose-form__publish-button-wrapper {
+    overflow: visible !important;
+
+    &::after {
+      content: "Cancel";
+      transform: translate(-68px, -34px);
+      display: inline-block;
+      opacity: 0.5;
+      cursor: pointer;
+      padding: 8px;
+    }
   }
-  .compose-form:has(.reply-indicator__header) .compose-form__publish {
-    opacity: 1;
-  }
+
+  // .compose-form:has(textarea:empty) .compose-form__publish {
+  //   opacity: 0;
+  // }
+  // .compose-form:has(textarea:empty) .compose-form__buttons-wrapper:not(:hover) {
+  //   opacity: 0.3;
+  // }
+  // .compose-form:has(.reply-indicator__header) .compose-form__publish {
+  //   opacity: 1;
+  // }
 
   .getting-started__trends {
     display: none;
@@ -163,7 +228,7 @@ html.simplify {
       border-radius: 100px;
 
       &:hover {
-        background-color: #fff;
+        background-color: var(--color-bg-cards);
         box-shadow: var(--shadow);
       }
 
