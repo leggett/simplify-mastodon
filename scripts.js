@@ -163,7 +163,10 @@ const minimizeCompose = () => {
       e.target.classList.remove("hidden");
     });
 
-    get(".compose-form__publish")?.addEventListener("click", () => {
+    get(".compose-form__publish")?.addEventListener("click", (e) => {
+      if (e.target.nodeName !== "BUTTON") {
+        get(".reply-indicator__cancel button")?.click();
+      }
       get(".compose-form")?.classList.add("hidden");
     });
     console.log("Compose hidden");
