@@ -140,6 +140,14 @@ html.simplify {
       }
     }
 
+    // Increase the border radius of avatars to better match the card
+    .account__avatar[style*="width: 46px"] {
+      border-radius: 12px;
+    }
+    .account__avatar[style*="width: 36px"] {
+      border-radius: 8px;
+    }
+
     // =============================================
     // == COMPOSE COLUMN ===========================
 

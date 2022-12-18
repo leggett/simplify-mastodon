@@ -99,6 +99,12 @@ html.simplify .navigation-panel .column-link[title=Lists] {
   html.simplify article:not(:hover) .status__action-bar {
     opacity: 0.2;
   }
+  html.simplify .account__avatar[style*="width: 46px"] {
+    border-radius: 12px;
+  }
+  html.simplify .account__avatar[style*="width: 36px"] {
+    border-radius: 8px;
+  }
   html.simplify .columns-area__panels__pane--compositional {
     order: 2;
   }
