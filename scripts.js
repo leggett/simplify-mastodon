@@ -200,7 +200,7 @@ const checkScrollPos = () => {
 const init = () => {
   html = document.documentElement;
   html.classList.add("simplify");
-  console.log("Simplify Mastodon v1.0 loaded");
+  console.log("Simplify Mastodon v1.1 loaded");
 
   minimizeCompose();
   window.addEventListener("scroll", checkScrollPos, { passive: true });
