@@ -173,6 +173,23 @@ const minimizeCompose = () => {
   }
 };
 
+// Detect theme
+const detectTheme = () => {
+  const [r, g, b] = getComputedStyle(document.body)
+    .backgroundColor.replace("rgb(", "")
+    .replace(")", "")
+    .split(", ");
+  const avgColor = (parseInt(r) + parseInt(g) + parseInt(b)) / 3;
+
+  if (avgColor > 200) {
+    document.body.classList.add("forceLightTheme");
+  }
+
+  if (avgColor < 100) {
+    document.body.classList.add("forceDarkTheme");
+  }
+};
+
 // Scrolling monitor to hide title bar
 let lastScrollPos = 0;
 let titleBarHeight = 78;
@@ -205,6 +222,7 @@ const init = () => {
   html.classList.add("simplify");
   console.log("Simplify Mastodon v1.2 loaded");
 
+  detectTheme();
   minimizeCompose();
   window.addEventListener("scroll", checkScrollPos, { passive: true });
 

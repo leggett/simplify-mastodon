@@ -4,12 +4,23 @@ html.simplify {
   --shadow-big: 0px 8px 36px rgba(0, 0, 0, 0.05);
 }
 @media only screen and (min-width: 1175px) {
-  html.simplify body.theme-mastodon-light {
+  html.simplify body.theme-mastodon-light,
+html.simplify body.skin-mastodon-light {
     --color-background: #fff;
     --color-bg-cards: #fff;
   }
   html.simplify body.theme-default,
-html.simplify body.theme-contrast {
+html.simplify body.theme-contrast,
+html.simplify body.skin-default,
+html.simplify body.skin-contrast {
+    --color-background: #191b22;
+    --color-bg-cards: #262a3b;
+  }
+  html.simplify body.forceLightTheme {
+    --color-background: #fff;
+    --color-bg-cards: #fff;
+  }
+  html.simplify body.forceDarkTheme {
     --color-background: #191b22;
     --color-bg-cards: #262a3b;
   }
@@ -17,7 +28,10 @@ html.simplify body.theme-contrast {
     --color-background: #1f3750;
     --color-bg-cards: #233e5b;
   }
-  html.simplify body {
+  html.simplify,
+html.simplify body,
+html.simplify .ui {
+    --f-body-bg: var(--color-background);
     background: var(--color-background);
   }
   html.simplify .columns-area__panels__pane--navigational {
@@ -99,11 +113,17 @@ html.simplify .navigation-panel .column-link[title=Lists] {
   html.simplify article:not(:hover) .status__action-bar {
     opacity: 0.2;
   }
+  html.simplify article .load-more {
+    border-radius: 16px;
+  }
   html.simplify .account__avatar[style*="width: 46px"] {
     border-radius: 12px;
   }
   html.simplify .account__avatar[style*="width: 36px"] {
     border-radius: 8px;
+  }
+  html.simplify .load-gap {
+    border-bottom: 0px;
   }
   html.simplify .columns-area__panels__pane--compositional {
     order: 2;
@@ -196,4 +216,7 @@ html.simplify .compose-panel .navigation-bar:not(:hover) .navigation-bar__action
 html.simplify .search:has(.search__input:not(:empty)) .fa-search {
     display: none;
   }
+}
+html.simplify .modal-root__overlay {
+  background-color: rgba(0, 0, 0, 0.85) !important;
 }

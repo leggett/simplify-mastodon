@@ -4,12 +4,23 @@ html.simplify {
   --shadow-big: 0px 8px 36px rgba(0, 0, 0, 0.05);
 
   @media only screen and (min-width: 1175px) {
-    body.theme-mastodon-light {
+    body.theme-mastodon-light,
+    body.skin-mastodon-light {
       --color-background: #fff;
       --color-bg-cards: #fff;
     }
     body.theme-default,
-    body.theme-contrast {
+    body.theme-contrast,
+    body.skin-default,
+    body.skin-contrast {
+      --color-background: #191b22;
+      --color-bg-cards: #262a3b;
+    }
+    body.forceLightTheme {
+      --color-background: #fff;
+      --color-bg-cards: #fff;
+    }
+    body.forceDarkTheme {
       --color-background: #191b22;
       --color-bg-cards: #262a3b;
     }
@@ -18,7 +29,11 @@ html.simplify {
       --color-bg-cards: #233e5b;
     }
 
-    body {
+    // Apply background
+    &,
+    body,
+    .ui {
+      --f-body-bg: var(--color-background);
       background: var(--color-background);
     }
 
@@ -138,6 +153,10 @@ html.simplify {
       &:not(:hover) .status__action-bar {
         opacity: 0.2;
       }
+
+      .load-more {
+        border-radius: 16px;
+      }
     }
 
     // Increase the border radius of avatars to better match the card
@@ -146,6 +165,11 @@ html.simplify {
     }
     .account__avatar[style*="width: 36px"] {
       border-radius: 8px;
+    }
+
+    // Drop the bottom border on the Load More card
+    .load-gap {
+      border-bottom: 0px;
     }
 
     // =============================================
@@ -275,5 +299,13 @@ html.simplify {
     .search:has(.search__input:not(:empty)) .fa-search {
       display: none;
     }
+  }
+
+  // =============================================
+  // == OTHER ====================================
+
+  // Make the modal background
+  .modal-root__overlay {
+    background-color: rgba(0, 0, 0, 0.85) !important; // rgba(41, 42, 44, 0.95);
   }
 }
