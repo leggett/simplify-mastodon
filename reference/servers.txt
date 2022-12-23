@@ -63,6 +63,7 @@ sfba.social
 socel.net
 social.bau-ha.us
 social.linux.pizza
+social.lol
 social.vivaldi.net
 sself.co
 tech.lgbt
