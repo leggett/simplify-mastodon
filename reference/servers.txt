@@ -216,6 +216,7 @@ beta.qdon.space
 bildung.social
 blacktwitter.io
 blob.cat
+bolha.one
 bonn.social
 bookrastinating.com
 bookwyrm.social
@@ -313,6 +314,7 @@ mastodon.com.py
 mastodon.eus
 mastodon.fun
 mastodon.gal
+mastodon.girino.org
 mastodon.gougere.fr
 mastodon.gza.jp
 mastodon.in.th
@@ -403,6 +405,7 @@ social.clusterfog.com
 social.dev-wiki.de
 social.ftfl.ca
 social.gnomehead.ch
+social.lol
 social.politicaconciencia.org
 spaghettimonster.church
 sself.co
