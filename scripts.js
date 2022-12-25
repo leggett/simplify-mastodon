@@ -220,7 +220,7 @@ const checkScrollPos = () => {
 const init = () => {
   html = document.documentElement;
   html.classList.add("simplify");
-  console.log("Simplify Mastodon v1.2 loaded");
+  console.log("Simplify Mastodon v1.3 loaded");
 
   detectTheme();
   minimizeCompose();
