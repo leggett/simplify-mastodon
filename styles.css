@@ -98,23 +98,48 @@ html.simplify .navigation-panel .column-link[title=Lists] {
     border: 0px;
     background-color: transparent;
   }
-  html.simplify article {
+  html.simplify .scrollable > div[tabindex="-1"]:has(> .status__wrapper),
+html.simplify .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper),
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .status__wrapper),
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper),
+html.simplify article {
     background-color: var(--color-bg-cards);
     margin: 40px 25px;
     border-radius: 16px;
     box-shadow: var(--shadow-big);
   }
-  html.simplify article .status {
+  html.simplify .scrollable > div[tabindex="-1"]:has(> .status__wrapper) .status,
+html.simplify .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper) .status,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .status__wrapper) .status,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper) .status,
+html.simplify article .status {
     border-bottom: none;
   }
-  html.simplify article .status__relative-time {
+  html.simplify .scrollable > div[tabindex="-1"]:has(> .status__wrapper) .status__relative-time,
+html.simplify .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper) .status__relative-time,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .status__wrapper) .status__relative-time,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper) .status__relative-time,
+html.simplify article .status__relative-time {
     opacity: 0.5;
   }
-  html.simplify article:not(:hover) .status__action-bar {
+  html.simplify .scrollable > div[tabindex="-1"]:has(> .status__wrapper):not(:hover) .status__action-bar,
+html.simplify .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper):not(:hover) .status__action-bar,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .status__wrapper):not(:hover) .status__action-bar,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper):not(:hover) .status__action-bar,
+html.simplify article:not(:hover) .status__action-bar {
     opacity: 0.2;
   }
-  html.simplify article .load-more {
+  html.simplify .scrollable > div[tabindex="-1"]:has(> .status__wrapper) .load-more,
+html.simplify .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper) .load-more,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .status__wrapper) .load-more,
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper) .load-more,
+html.simplify article .load-more {
     border-radius: 16px;
+  }
+  html.simplify .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper),
+html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper) {
+    overflow: hidden;
+    border: 5px solid rgba(245, 245, 245, 0.1333333333);
   }
   html.simplify .account__avatar[style*="width: 46px"] {
     border-radius: 12px;

@@ -134,8 +134,11 @@ html.simplify {
       border: 0px;
       background-color: transparent;
     }
-    // .scrollable div[tabindex="-1"]:has(> .status__wrapper),
-    // .scrollable div[tabindex="-1"]:has(> .detailed-status__wrapper),
+
+    .scrollable > div[tabindex="-1"]:has(> .status__wrapper),
+    .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper),
+    .scrollable > div > div[tabindex="-1"]:has(> .status__wrapper),
+    .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper),
     article {
       background-color: var(--color-bg-cards);
       margin: 40px 25px;
@@ -157,6 +160,12 @@ html.simplify {
       .load-more {
         border-radius: 16px;
       }
+    }
+    .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper),
+    .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper) {
+      // Force border radius
+      overflow: hidden;
+      border: 5px solid #f5f5f522;
     }
 
     // Increase the border radius of avatars to better match the card
