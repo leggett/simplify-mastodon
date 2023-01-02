@@ -1,13 +1,14 @@
-html.simplify {
-  --shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-  --shadow-light: 0 3px 10px rgba(0, 0, 0, 0.08);
-  --shadow-big: 0px 8px 36px rgba(0, 0, 0, 0.05);
-}
 @media only screen and (min-width: 1175px) {
+  html.simplify {
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    --shadow-light: 0 3px 10px rgba(0, 0, 0, 0.08);
+    --shadow-big: 0px 8px 24px rgba(0, 0, 0, 0.06);
+  }
   html.simplify body.theme-mastodon-light,
 html.simplify body.skin-mastodon-light {
-    --color-background: #fff;
+    --color-background: #f7f7f7;
     --color-bg-cards: #fff;
+    --color-nav-icon: rgb(40, 44, 55);
   }
   html.simplify body.theme-default,
 html.simplify body.theme-contrast,
@@ -15,18 +16,24 @@ html.simplify body.skin-default,
 html.simplify body.skin-contrast {
     --color-background: #191b22;
     --color-bg-cards: #262a3b;
+    --color-nav-icon: rgb(217, 225, 232);
+    --shadow-big: none;
   }
   html.simplify body.forceLightTheme {
-    --color-background: #fff;
+    --color-background: #f7f7f7;
     --color-bg-cards: #fff;
+    --color-nav-icon: rgb(40, 44, 55);
   }
   html.simplify body.forceDarkTheme {
     --color-background: #191b22;
     --color-bg-cards: #262a3b;
+    --color-nav-icon: rgb(217, 225, 232);
+    --shadow-big: none;
   }
   html.simplify body.theme-mastodon-winter {
     --color-background: #1f3750;
     --color-bg-cards: #233e5b;
+    --color-nav-icon: rgb(217, 225, 232);
   }
   html.simplify,
 html.simplify body,
@@ -44,9 +51,6 @@ html.simplify .ui {
     padding-top: 20px;
     height: auto;
   }
-  html.simplify .navigation-panel .column-link:not(:hover) i + span {
-    opacity: 0;
-  }
   html.simplify .navigation-panel a.column-link {
     display: flex;
     align-items: center;
@@ -57,14 +61,36 @@ html.simplify .ui {
   html.simplify .navigation-panel a.column-link i.icon-with-badge__badge {
     font-size: 12px;
   }
-  html.simplify .navigation-panel .column-link[title=Local],
-html.simplify .navigation-panel .column-link[title=Federated],
-html.simplify .navigation-panel .column-link[title=Favourites],
-html.simplify .navigation-panel .column-link[title=Bookmarks],
-html.simplify .navigation-panel .column-link[title=Lists] {
+  html.simplify .navigation-panel .column-link ~ hr {
     display: none;
   }
-  html.simplify .navigation-panel .column-link ~ hr {
+  html.simplify:not(.signedOut) .navigation-panel .column-link:not(:hover) i + span {
+    opacity: 0;
+  }
+  html.simplify.lessNavItems:not(.signedOut) .navigation-panel .column-link[title=Local],
+html.simplify.lessNavItems:not(.signedOut) .navigation-panel .column-link[title=Federated],
+html.simplify.lessNavItems:not(.signedOut) .navigation-panel .column-link[title=Favourites],
+html.simplify.lessNavItems:not(.signedOut) .navigation-panel .column-link[title=Bookmarks],
+html.simplify.lessNavItems:not(.signedOut) .navigation-panel .column-link[title=Lists] {
+    display: none;
+  }
+  html.simplify.lessNavItems:not(.signedOut) .navigation-panel .flex-spacer {
+    height: 48px;
+    width: 64px;
+    cursor: pointer;
+  }
+  html.simplify.lessNavItems:not(.signedOut) .navigation-panel .flex-spacer::before {
+    content: "\f078";
+    color: var(--color-nav-icon);
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 24px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 12px 0 0 20px;
+  }
+  html.simplify.lessNavItems:not(.signedOut) .navigation-panel .list-panel hr {
     display: none;
   }
   html.simplify .link-footer {
@@ -77,14 +103,26 @@ html.simplify .navigation-panel .column-link[title=Lists] {
   html.simplify .columns-area__panels__main > div {
     max-width: 650px;
   }
+  html.simplify .explore__suggestions > div {
+    margin: 36px 0;
+  }
   html.simplify .tabs-bar__wrapper {
     padding-top: 30px;
     margin: auto;
     width: 100%;
     background: var(--color-background);
+    top: 0px;
+    transition: top 100ms ease-out;
+  }
+  html.simplify .column-header__back-button {
+    background: var(--color-background);
   }
   html.simplify.scrolled .tabs-bar__wrapper {
-    display: none;
+    top: -80px;
+    transition: top 100ms ease-out;
+  }
+  html.simplify.scrolled .tabs-bar__wrapper:has(.column-header__collapsible__extra) {
+    top: -220px;
   }
   html.simplify .column-header {
     border-radius: 0px;
@@ -104,9 +142,8 @@ html.simplify .scrollable > div > div[tabindex="-1"]:has(> .status__wrapper),
 html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper),
 html.simplify article {
     background-color: var(--color-bg-cards);
-    margin: 40px 25px;
+    margin: 40px 0;
     border-radius: 16px;
-    box-shadow: var(--shadow-big);
   }
   html.simplify .scrollable > div[tabindex="-1"]:has(> .status__wrapper) .status,
 html.simplify .scrollable > div[tabindex="-1"]:has(> .detailed-status__wrapper) .status,
@@ -150,6 +187,9 @@ html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wra
   html.simplify .load-gap {
     border-bottom: 0px;
   }
+  html.simplify .conversation {
+    border-bottom: none;
+  }
   html.simplify .columns-area__panels__pane--compositional {
     order: 2;
   }
@@ -162,7 +202,7 @@ html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wra
   html.simplify form.compose-form * .compose-form textarea::placeholder {
     opacity: 0;
   }
-  html.simplify .compose-form.hidden:not(:has(.reply-indicator__header)) {
+  html.simplify .compose-form.hidden:not(:has(.reply-indicator__header)):not(:has(.compose-form__warning)) {
     min-height: 48px;
     max-height: 48px;
     height: 48px;
@@ -172,10 +212,10 @@ html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wra
     margin-left: auto;
     cursor: pointer;
   }
-  html.simplify .compose-form.hidden:not(:has(.reply-indicator__header)) * {
+  html.simplify .compose-form.hidden:not(:has(.reply-indicator__header)):not(:has(.compose-form__warning)) * {
     display: none;
   }
-  html.simplify .compose-form.hidden:not(:has(.reply-indicator__header))::before {
+  html.simplify .compose-form.hidden:not(:has(.reply-indicator__header)):not(:has(.compose-form__warning))::before {
     content: "\f040";
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;

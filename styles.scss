@@ -1,13 +1,14 @@
 html.simplify {
-  --shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-  --shadow-light: 0 3px 10px rgba(0, 0, 0, 0.08);
-  --shadow-big: 0px 8px 36px rgba(0, 0, 0, 0.05);
-
   @media only screen and (min-width: 1175px) {
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    --shadow-light: 0 3px 10px rgba(0, 0, 0, 0.08);
+    --shadow-big: 0px 8px 24px rgba(0, 0, 0, 0.06);
+
     body.theme-mastodon-light,
     body.skin-mastodon-light {
-      --color-background: #fff;
+      --color-background: #f7f7f7; // #fff;
       --color-bg-cards: #fff;
+      --color-nav-icon: rgb(40, 44, 55);
     }
     body.theme-default,
     body.theme-contrast,
@@ -15,18 +16,24 @@ html.simplify {
     body.skin-contrast {
       --color-background: #191b22;
       --color-bg-cards: #262a3b;
+      --color-nav-icon: rgb(217, 225, 232);
+      --shadow-big: none; // 0px 8px 24px rgba(58, 59, 255, 0.06);
     }
     body.forceLightTheme {
-      --color-background: #fff;
+      --color-background: #f7f7f7; // #fff;
       --color-bg-cards: #fff;
+      --color-nav-icon: rgb(40, 44, 55);
     }
     body.forceDarkTheme {
       --color-background: #191b22;
       --color-bg-cards: #262a3b;
+      --color-nav-icon: rgb(217, 225, 232);
+      --shadow-big: none; // 0px 8px 24px rgba(58, 59, 255, 0.06);
     }
     body.theme-mastodon-winter {
       --color-background: #1f3750;
       --color-bg-cards: #233e5b;
+      --color-nav-icon: rgb(217, 225, 232);
     }
 
     // Apply background
@@ -54,13 +61,6 @@ html.simplify {
       padding-top: 20px;
       height: auto;
 
-      // Hide nav labels until hover
-      .column-link:not(:hover) {
-        i + span {
-          opacity: 0;
-        }
-      }
-
       // Bump up icon size in nav
       a.column-link {
         display: flex;
@@ -74,18 +74,54 @@ html.simplify {
         }
       }
 
-      // Hide a bunch of nav items
-      .column-link[title="Local"],
-      .column-link[title="Federated"],
-      .column-link[title="Favourites"],
-      .column-link[title="Bookmarks"],
-      .column-link[title="Lists"] {
-        display: none;
-      }
-
       // Hide HR above prefs nav item
       .column-link ~ hr {
         display: none;
+      }
+    }
+
+    // Hide nav labels until hover if signed out
+    &:not(.signedOut) .navigation-panel {
+      .column-link:not(:hover) {
+        i + span {
+          opacity: 0;
+        }
+      }
+    }
+
+    &.lessNavItems:not(.signedOut) {
+      .navigation-panel {
+        // Hide a bunch of nav items
+        .column-link[title="Local"],
+        .column-link[title="Federated"],
+        .column-link[title="Favourites"],
+        .column-link[title="Bookmarks"],
+        .column-link[title="Lists"] {
+          display: none;
+        }
+
+        // Use spacer for expand nav button
+        .flex-spacer {
+          height: 48px;
+          width: 64px;
+          cursor: pointer;
+
+          &::before {
+            content: "";
+            color: var(--color-nav-icon);
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 24px;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 12px 0 0 20px;
+          }
+        }
+
+        .list-panel hr {
+          display: none;
+        }
       }
     }
 
@@ -100,7 +136,7 @@ html.simplify {
     // =============================================
     // == MAIN COLUMN ==============================
 
-    // Reorder the columns
+    // Reorder the columns and put a max width on the main column
     .columns-area__panels__main {
       order: 1;
       max-width: calc(100% - 615px);
@@ -109,16 +145,47 @@ html.simplify {
       }
     }
 
+    // Add margin to make tabs and headers match the width of the cards
+    // #tabs-bar__portal,
+    // .notification__filter-bar,
+    // .account-timeline__header,
+    // .empty-column-indicator,
+    // .account__section-headline,
+    // .dismissable-banner,
+    // .column-inline-form,
+    // .column-subheading,
+    // .explore__links,
+    // .explore__suggestions,
+    // .trends__item,
+    // .follow_requests-unlocked_explanation {
+    //   margin: 0 24px;
+    // }
+
+    .explore__suggestions > div {
+      margin: 36px 0;
+    }
+
+    // Center the top bar and blend it into the background
     .tabs-bar__wrapper {
       padding-top: 30px;
       margin: auto;
       width: 100%;
       background: var(--color-background);
+      top: 0px;
+      transition: top 100ms ease-out;
+    }
+    .column-header__back-button {
+      background: var(--color-background);
     }
 
     // Hide the title bar when scrolled down
     &.scrolled .tabs-bar__wrapper {
-      display: none;
+      top: -80px;
+      transition: top 100ms ease-out;
+    }
+    // Or I could make it -80px with :has(.column-header__collapsible.collapsed)
+    &.scrolled .tabs-bar__wrapper:has(.column-header__collapsible__extra) {
+      top: -220px;
     }
 
     .column-header {
@@ -141,9 +208,9 @@ html.simplify {
     .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wrapper),
     article {
       background-color: var(--color-bg-cards);
-      margin: 40px 25px;
+      margin: 40px 0; // 25px;
       border-radius: 16px;
-      box-shadow: var(--shadow-big);
+      // box-shadow: var(--shadow-big);
 
       .status {
         border-bottom: none;
@@ -181,6 +248,11 @@ html.simplify {
       border-bottom: 0px;
     }
 
+    // Drop bottom border on DMs
+    .conversation {
+      border-bottom: none;
+    }
+
     // =============================================
     // == COMPOSE COLUMN ===========================
 
@@ -201,7 +273,9 @@ html.simplify {
       }
     }
 
-    .compose-form.hidden:not(:has(.reply-indicator__header)) {
+    .compose-form.hidden:not(:has(.reply-indicator__header)):not(
+        :has(.compose-form__warning)
+      ) {
       // Hide everything in compose when it isn't open
       * {
         display: none;
