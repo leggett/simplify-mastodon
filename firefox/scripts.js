@@ -1,26 +1,69 @@
 // UTILITIES
 
+// Shorthand for getting first matching element; returns Node
 const get = (selector, parent = "") => {
   if (parent === "") {
     return document.querySelector(selector);
-  } else {
+  } else if (parent instanceof Node) {
     return parent.querySelector(selector);
+  } else if (parent instanceof String) {
+    return document.querySelector(`${parent} ${selector}`);
+  } else {
+    error("get() called with undefined parent.", selector, parent);
+    return false;
   }
 };
 
+// Shorthand for getting elements; returns NodeList
 const gets = (selector, parent = "") => {
   if (parent === "") {
     return document.querySelectorAll(selector);
-  } else {
+  } else if (parent instanceof Node) {
     return parent.querySelectorAll(selector);
+  } else if (parent instanceof String) {
+    return document.querySelector(`${parent} ${selector}`);
+  } else {
+    error("gets() called with undefined parent.", selector, parent);
+    return false;
   }
 };
 
+// Shorthand for getting number of elements given a provided selector
 const count = (selector, parent = "") => {
   if (parent === "") {
     return document.querySelectorAll(selector).length;
-  } else {
+  } else if (parent instanceof Node) {
     return parent.querySelectorAll(selector).length;
+  } else if (typeof parent === "string") {
+    return document.querySelectorAll(`${parent} ${selector}`).length;
+  } else {
+    error("count() called with undefined parent.", selector, parent);
+    return false;
+  }
+};
+
+// Shorthand for seeing if an element exists
+const exists = (selector, parent = "") => {
+  if (parent === "") {
+    // return document.querySelectorAll(selector).length > 0;
+    return (
+      document.body?.contains(document.querySelector(selector)) ||
+      document.querySelector(selector) !== null
+    );
+  } else if (parent instanceof Node) {
+    return (
+      document.body?.contains(parent.querySelector(selector)) ||
+      parent.querySelector(selector) !== null
+    );
+  } else if (typeof parent === "string") {
+    return (
+      document.body?.contains(
+        document.querySelector(`${parent} ${selector}`)
+      ) || document.querySelector(`${parent} ${selector}`) !== null
+    );
+  } else {
+    error("exists() called with undefined parent.", selector, parent);
+    return null;
   }
 };
 
@@ -135,7 +178,7 @@ window.addEventListener(
     if (altKeyOnly && e.code === "KeyS") {
       e.preventDefault();
       console.log("You pressed Option+S");
-      html.classList.toggle("simplify");
+      document.documentElement.classList.toggle("simplify");
       return;
     }
 
@@ -173,6 +216,18 @@ const minimizeCompose = () => {
   }
 };
 
+const showFullNav = () => {
+  document.documentElement.classList.remove("lessNavItems");
+};
+const initShowFullNav = () => {
+  const navSpacers = gets(".navigation-panel .flex-spacer:not(.SOFC)");
+  navSpacers.forEach((navSpacer) => {
+    navSpacer.addEventListener("click", showFullNav);
+    navSpacer.classList.add("SOFC");
+    console.log("Nav spacer listener added", navSpacer);
+  });
+};
+
 // Detect theme
 const detectTheme = () => {
   const [r, g, b] = getComputedStyle(document.body)
@@ -195,19 +250,31 @@ let lastScrollPos = 0;
 let titleBarHeight = 78;
 let titleBarHidden = false;
 const checkScrollPos = () => {
+  const cachedTitleBarHeight = titleBarHeight;
+
+  // Update the title bar height
+  titleBarHeight = exists(
+    ".tabs-bar__wrapper .column-header__collapsible__extra"
+  )
+    ? 218
+    : 78;
+
+  // Exanding the filter menu triggers a scrolling event; ignore it
+  if (cachedTitleBarHeight !== titleBarHeight) return;
+
   const currentScrollPos = titleBarHidden
-    ? parseInt(html.scrollTop)
-    : parseInt(html.scrollTop) - titleBarHeight;
+    ? parseInt(document.documentElement.scrollTop)
+    : parseInt(document.documentElement.scrollTop) - titleBarHeight;
 
   if (currentScrollPos < lastScrollPos - 50) {
     // console.log("Scrolling up", currentScrollPos, lastScrollPos);
-    html.classList.remove("scrolled");
+    document.documentElement.classList.remove("scrolled");
     titleBarHidden = false;
     lastScrollPos = currentScrollPos;
   } else if (currentScrollPos > lastScrollPos + 100) {
     // console.log("Scrolling down", currentScrollPos, lastScrollPos);
     if (currentScrollPos > 100) {
-      html.classList.add("scrolled");
+      document.documentElement.classList.add("scrolled");
       titleBarHidden = true;
     }
     lastScrollPos = currentScrollPos;
@@ -218,20 +285,28 @@ const checkScrollPos = () => {
 };
 
 const init = () => {
-  html = document.documentElement;
-  html.classList.add("simplify");
-  console.log("Simplify Mastodon v1.3 loaded");
+  // html = document.documentElement;
+  // document.documentElement.classList.add("simplify", "lessNavItems");
+  // console.log("Simplify Mastodon v1.5 loaded");
 
   detectTheme();
   minimizeCompose();
+  initShowFullNav();
   window.addEventListener("scroll", checkScrollPos, { passive: true });
 
   // Disable Simplify in multiple columns mode
   if (document.body.classList.contains("layout-multiple-columns")) {
-    html.classList.remove("simplify");
+    document.documentElement.classList.remove("simplify");
+  }
+
+  // Check if signed out
+  if (exists("a[href='/auth/sign_in']")) {
+    document.documentElement.classList.add("signedOut");
   }
 
   titleBarHeight = get(".tabs-bar__wrapper")?.scrollHeight || 78;
 };
 
+console.log("Simplify Mastodon v1.5 loaded");
+document.documentElement.classList.add("simplify", "lessNavItems");
 window.addEventListener("load", init);
