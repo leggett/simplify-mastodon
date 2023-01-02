@@ -1,7 +1,7 @@
 {
   "name": "Simplify Mastodon",
 
-  "version": "1.3",
+  "version": "1.5",
 
   "manifest_version": 3,
 
@@ -169,6 +169,7 @@
         "https://*.mastodon.cc/*",
         "https://*.mastodon.cipherbliss.com/*",
         "https://*.mastodon.cloud/*",
+        "https://*.mastodon.coffee/*",
         "https://*.mastodon.com.py/*",
         "https://*.mastodon.com.tr/*",
         "https://*.mastodon.design/*",
