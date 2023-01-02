@@ -287,7 +287,7 @@ const checkScrollPos = () => {
 const init = () => {
   // html = document.documentElement;
   // document.documentElement.classList.add("simplify", "lessNavItems");
-  // console.log("Simplify Mastodon v1.5 loaded");
+  // console.log("Simplify Mastodon v1.6 loaded");
 
   detectTheme();
   minimizeCompose();
@@ -307,6 +307,6 @@ const init = () => {
   titleBarHeight = get(".tabs-bar__wrapper")?.scrollHeight || 78;
 };
 
-console.log("Simplify Mastodon v1.5 loaded");
+console.log("Simplify Mastodon v1.6 loaded");
 document.documentElement.classList.add("simplify", "lessNavItems");
 window.addEventListener("load", init);
