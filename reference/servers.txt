@@ -302,6 +302,7 @@ lor.sh
 lou.lt
 malnacido.com
 mast.dragon-fly.club
+masto.donte.com.br
 masto.nobigtech.es
 masto.nu
 masto.pt
@@ -441,6 +442,7 @@ ursal.zone
 uwu.social
 varishangout.net
 venera.social
+vira-lata.org
 vivere.uno
 vmst.io
 vocalodon.net
