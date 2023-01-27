@@ -253,6 +253,12 @@ html.simplify {
       border-bottom: none;
     }
 
+    // Curve the border radius on unread notifications
+    .notification.unread:before,
+    .status__wrapper.unread:before {
+      border-radius: 16px;
+    }
+
     // =============================================
     // == COMPOSE COLUMN ===========================
 
