@@ -190,6 +190,10 @@ html.simplify .scrollable > div > div[tabindex="-1"]:has(> .detailed-status__wra
   html.simplify .conversation {
     border-bottom: none;
   }
+  html.simplify .notification.unread:before,
+html.simplify .status__wrapper.unread:before {
+    border-radius: 16px;
+  }
   html.simplify .columns-area__panels__pane--compositional {
     order: 2;
   }
