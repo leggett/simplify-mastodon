@@ -46,20 +46,13 @@ const count = (selector, parent = "") => {
 const exists = (selector, parent = "") => {
   if (parent === "") {
     // return document.querySelectorAll(selector).length > 0;
-    return (
-      document.body?.contains(document.querySelector(selector)) ||
-      document.querySelector(selector) !== null
-    );
+    return document.body?.contains(document.querySelector(selector)) || document.querySelector(selector) !== null;
   } else if (parent instanceof Node) {
-    return (
-      document.body?.contains(parent.querySelector(selector)) ||
-      parent.querySelector(selector) !== null
-    );
+    return document.body?.contains(parent.querySelector(selector)) || parent.querySelector(selector) !== null;
   } else if (typeof parent === "string") {
     return (
-      document.body?.contains(
-        document.querySelector(`${parent} ${selector}`)
-      ) || document.querySelector(`${parent} ${selector}`) !== null
+      document.body?.contains(document.querySelector(`${parent} ${selector}`)) ||
+      document.querySelector(`${parent} ${selector}`) !== null
     );
   } else {
     error("exists() called with undefined parent.", selector, parent);
@@ -129,10 +122,7 @@ const clicks = () => {
 
 // Make and return element(s) for appending to the DOM
 const make = (selector, ...args) => {
-  const attrs =
-    typeof args[0] === "object" && !(args[0] instanceof HTMLElement)
-      ? args.shift()
-      : {};
+  const attrs = typeof args[0] === "object" && !(args[0] instanceof HTMLElement) ? args.shift() : {};
 
   let classes = selector.split(".");
   if (classes.length > 0) selector = classes.shift();
@@ -168,10 +158,7 @@ const make = (selector, ...args) => {
 window.addEventListener(
   "keydown",
   async (e) => {
-    let composing =
-      e.target.isContentEditable ||
-      e.target.tagName === "INPUT" ||
-      e.target.tagName === "TEXTAREA";
+    let composing = e.target.isContentEditable || e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA";
 
     let altKeyOnly = e.altKey && !e.shiftKey && !e.metaKey && !e.ctrlKey;
 
@@ -230,10 +217,7 @@ const initShowFullNav = () => {
 
 // Detect theme
 const detectTheme = () => {
-  const [r, g, b] = getComputedStyle(document.body)
-    .backgroundColor.replace("rgb(", "")
-    .replace(")", "")
-    .split(", ");
+  const [r, g, b] = getComputedStyle(document.body).backgroundColor.replace("rgb(", "").replace(")", "").split(", ");
   const avgColor = (parseInt(r) + parseInt(g) + parseInt(b)) / 3;
 
   if (avgColor > 200) {
@@ -253,11 +237,7 @@ const checkScrollPos = () => {
   const cachedTitleBarHeight = titleBarHeight;
 
   // Update the title bar height
-  titleBarHeight = exists(
-    ".tabs-bar__wrapper .column-header__collapsible__extra"
-  )
-    ? 218
-    : 78;
+  titleBarHeight = exists(".tabs-bar__wrapper .column-header__collapsible__extra") ? 218 : 78;
 
   // Exanding the filter menu triggers a scrolling event; ignore it
   if (cachedTitleBarHeight !== titleBarHeight) return;
@@ -287,7 +267,7 @@ const checkScrollPos = () => {
 const init = () => {
   // html = document.documentElement;
   // document.documentElement.classList.add("simplify", "lessNavItems");
-  // console.log("Simplify Mastodon v1.6 loaded");
+  // console.log("Simplify Mastodon v1.7 loaded");
 
   detectTheme();
   minimizeCompose();
@@ -307,6 +287,6 @@ const init = () => {
   titleBarHeight = get(".tabs-bar__wrapper")?.scrollHeight || 78;
 };
 
-console.log("Simplify Mastodon v1.6 loaded");
+console.log("Simplify Mastodon v1.7 loaded");
 document.documentElement.classList.add("simplify", "lessNavItems");
 window.addEventListener("load", init);
